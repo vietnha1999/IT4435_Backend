@@ -15,6 +15,7 @@ async function createExpressApp () {
   // const server = http.createServer(app);
   // server.listen(process.env.PORT);
   app.listen(process.env.PORT || 80);
+  console.table([{ Author: '@vietnha', Contact: 'viet.nha173465@sis.hust.edu.vn', Server: 'localhost:'+env.PORT}]);
   // server.listen(process.env.PORT || 80, '0.0.0.0');
   logger.debug(`Service is listening on PORT=${process.env.PORT}`);
 
