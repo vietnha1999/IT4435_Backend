@@ -6,7 +6,6 @@ import CustomError from '../error/customError';
 import logger from "../_base/log/logger4js";
 import dateUtil from "../util/dateUtil";
 import accountService from "./accountService";
-import { json } from "body-parser";
 
 class EmployeeService {
   private static _instance: EmployeeService
