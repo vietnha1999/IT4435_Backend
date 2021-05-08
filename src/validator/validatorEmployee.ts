@@ -63,9 +63,6 @@ class ValidatorEmployee {
     if (!stringUtil.isValidString(e.position, 1)) {
       return ERR_CODE.EMPLOYEE_INVALID_POSITION;
     }
-    if (!this.isValidAccount(e.account, 6, 20)) {
-      return ERR_CODE.EMPLOYEE_INVALID_ACCOUNT;
-    }
     if (!this.isValidRoleCode(e.roleCode)) {
       return ERR_CODE.EMPLOYEE_INVALID_ROLE;
     }

@@ -76,7 +76,6 @@ class EmployeeService {
           lastName: employee.lastName,
           avatarUri: avatarPath ? avatarPath : e.avatarUri,
           isActive: employee.isActive === false ? false : true,
-          account: employee.account,
           address: employee.address,
           hashPassword: e.hashPassword,
           birthday: employee.birthday,
@@ -88,9 +87,6 @@ class EmployeeService {
         };
         if (employee.cccd.toString() != e.cccd.toString()) {
           newEmployee.cccd = employee.cccd;
-        }
-        if (employee.account.toString() != e.account.toString()) {
-          newEmployee.account = employee.account;
         }
         await employeeDAO.update(newEmployee);
         let newEntity = await this.getById(e.id);
