@@ -1,0 +1,11 @@
+---
+application:
+  name: "buildspecial"
+  project: "hust_cf"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-buildspecial"
+  routes:
+  - application_name: "buildspecial"
+    paths:
+    - "/*"
