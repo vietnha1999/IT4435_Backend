@@ -88,6 +88,9 @@ class EmployeeService {
         if (employee.cccd.toString() != e.cccd.toString()) {
           newEmployee.cccd = employee.cccd;
         }
+        if (employee.account.toString() != e.account.toString()) {
+          newEmployee.account = employee.account;
+        }
         await employeeDAO.update(newEmployee);
         let newEntity = await this.getById(e.id);
         newEntity.password = e.password;
