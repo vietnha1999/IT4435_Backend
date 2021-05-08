@@ -7,9 +7,9 @@
 build/
 # Temp folder
 temp/
-
-#bak
+# Bak
 *.bak
+
 ### Linux ###
 *~
 

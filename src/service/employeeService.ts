@@ -86,8 +86,6 @@ class EmployeeService {
           roleCode: employee.roleCode,
           salary: employee.salary
         };
-        logger.debug(">__employee" + JSON.stringify(employee));
-        logger.debug(">__e" + JSON.stringify(e));
         if (employee.cccd.toString() != e.cccd.toString()) {
           newEmployee.cccd = employee.cccd;
         }
