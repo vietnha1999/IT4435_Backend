@@ -20,7 +20,9 @@ message: string
 ```
 > Request:
 ```ruby
-Date: dd-mm-yy
+Date (thay vì new Date(`dd-mm-yyyy`)) => `dd-mm-yyyy`
+Ví dụ:
+joinDate: '22-10-2020'
 ```
 
 > Nếu cần xác thực thì cần gắn Header:<br>
@@ -82,7 +84,7 @@ joinDate: Date
 expireDate: Date
 roleCode: number
 cccd: string
-avatar: string
+avatarUri: string
 isActive: boolean
 account: string
 salary: number
@@ -193,8 +195,8 @@ lastName: Độ dài > 0
 birthday: < Ngày hiện tại
 address: Độ dài > 0
 position: Độ dài > 0
-joinDate: Ngày gia nhập, định dạng `dd/mm/yy`
-expireDate: Ngày hết hạn hợp đồng, định dạng `dd/mm/yy`
+joinDate: Ngày gia nhập, định dạng `dd-mm-yyyy`
+expireDate: Ngày hết hạn hợp đồng, định dạng `dd-mm-yyyy`
 roleCode: Là 1 trong 2 giá trị
   1: Nhân viên
   2: Admin
@@ -238,7 +240,7 @@ Không
 
 > Response:<br>
 ```ruby
-employees: Array[
+employees: Array[{
   id: string
   firstName: string
   lastName: string
@@ -247,5 +249,176 @@ employees: Array[
   avatarUri: string
   isActive: boolean
   cccd: string
-]
+}]
+```
+# Transaction
+## Tạo một giao dịch:
+```ruby
+/v1/transaction/createone
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Lấy thông tin một giao dịch:
+```ruby
+/v1/transaction/getbyid
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Cập nhật thông tin một giao dịch:
+```ruby
+/v1/transaction/update
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+id: string
+description: string
+supplierName: string
+price: number
+time: `dd-mm-yyyy`
+```
+> Response:<br>
+```ruby
+id: string
+description: string
+price: number
+supplierName: string
+time: Date
+employee: {
+  id: string,
+  firstName: string,
+  lastName: string,
+  address: string,
+  position: string,
+  avatarUri: string,
+  isActive: string,
+  cccd: string
+}
+```
+## Xóa một giao dịch:
+```ruby
+/v1/transaction/delete
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+ids: Array<string>
+```
+> Response:<br>
+```ruby
+ids: Array<string>
+```
+## Lấy tất cả các giao dịch:
+```ruby
+/v1/transaction
+`put`
+```
+> Encytpe:
+```ruby
+application/json
+```
+> Chỉ admin có quyền nên phải gắn Header:<br>
+```ruby
+Bearer token
+```
+> Request:<br>
+```ruby
+Không
+```
+> Response:<br>
+```ruby
+transactions: Array[{
+  id: string
+  description: string
+  price: number
+  supplierName: string
+  time: Date
+  employee: {
+    id: string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    position: string,
+    avatarUri: string,
+    isActive: string,
+    cccd: string
+  }
+}]
 ```
