@@ -8,7 +8,7 @@ import dateUtil from "../util/dateUtil";
 import logger from "../_base/log/logger4js";
 import productDAO from "../dao/productDAO";
 import { ProductEntity } from "../entity/productEntity";
-import { EmployeeEntity } from "../entity/employeeEntity";
+import EmployeeItemFindDTO from "../dto/employee/employeeItemFindDTO";
 
 class StatService {
   private static _instance: StatService
@@ -146,7 +146,7 @@ class StatService {
       if (diffDays > 365*2) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.STAT_OVER_LIMIT_TWO_YEARS);
       }
-      const result = new Map<string, {counts: Array<number>, money: Array<number>, metadata: EmployeeEntity}>();
+      const result = new Map<string, {counts: Array<number>, money: Array<number>, metadata: EmployeeItemFindDTO}>();
       if (!orders) {
         orders = [];
       }
@@ -157,7 +157,7 @@ class StatService {
         const mapping = {
           counts: new Array<number>(diffDays + 1),
           money: new Array<number>(diffDays + 1),
-          metadata: employees[i]
+          metadata: new EmployeeItemFindDTO(employees[i])
         }
         for (let j = 0; j < diffDays + 1; j++) {
           mapping.counts[j] = 0;
