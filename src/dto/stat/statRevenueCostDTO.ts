@@ -7,7 +7,7 @@ export default class StatRevenueCostDTO extends AbstractDTO {
   constructor(revenue: number, cost: number) {
     super();
 
-    this.revenue = revenue;
-    this.cost = cost;
+    this.revenue = Number(revenue);
+    this.cost = Number(cost);
   }
 }
