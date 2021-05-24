@@ -19,7 +19,7 @@ export default class EmployeeItemFindDTO{
     this.position = e.position;
     
     if (e.avatarUri.includes("https://i.postimg")) {
-
+      this.avatarUri = e.avatarUri;
     }
     else {
       this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;

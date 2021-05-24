@@ -19,7 +19,7 @@ export default class ProductCreateDTO extends AbstractDTO{
     this.price = e.price;
     this.description = e.description;
     if (e.previewUri.includes("https://i.postimg")) {
-
+      this.previewUri = e.previewUri;
     }
     else {
       this.previewUri = serverConfig?.urlPrefix + e.previewUri;

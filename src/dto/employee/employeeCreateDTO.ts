@@ -32,7 +32,7 @@ export default class EmployeeCreateDTO extends AbstractDTO{
     this.roleCode = e.roleCode;
     this.cccd = e.cccd;
     if (e.avatarUri.includes("https://i.postimg")) {
-
+      this.avatarUri = e.avatarUri;
     }
     else {
       this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;

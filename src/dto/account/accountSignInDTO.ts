@@ -32,7 +32,7 @@ export default class AccountSignInDTO extends AbstractDTO {
     this.cccd = e.cccd;
 
     if (e.avatarUri.includes("https://i.postimg")) {
-
+      this.avatarUri = e.avatarUri;
     }
     else {
       this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
