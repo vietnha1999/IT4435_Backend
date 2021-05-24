@@ -30,7 +30,13 @@ export default class AccountSignInDTO extends AbstractDTO {
     this.joinDate = e.joinDate;
     this.expireDate = e.expireDate;
     this.cccd = e.cccd;
-    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
+
+    if (e.avatarUri.includes("https://i.postimg")) {
+
+    }
+    else {
+      this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
+    }
     this.roleCode = e.roleCode;
   }
 }

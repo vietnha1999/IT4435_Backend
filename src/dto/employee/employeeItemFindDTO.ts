@@ -17,7 +17,14 @@ export default class EmployeeItemFindDTO{
     this.lastName = e.lastName;
     this.address = e.address;
     this.position = e.position;
-    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
+    
+    if (e.avatarUri.includes("https://i.postimg")) {
+
+    }
+    else {
+      this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
+    }
+
     this.isActive = e.isActive;
     this.cccd = e.cccd;
   }

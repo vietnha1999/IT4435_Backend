@@ -31,7 +31,12 @@ export default class EmployeeCreateDTO extends AbstractDTO{
     this.expireDate = e.expireDate;
     this.roleCode = e.roleCode;
     this.cccd = e.cccd;
-    this.avatarUri = serverConfig?.urlPrefix + e.avatarUri
+    if (e.avatarUri.includes("https://i.postimg")) {
+
+    }
+    else {
+      this.avatarUri = serverConfig?.urlPrefix + e.avatarUri;
+    }
     this.isActive = e.isActive;
     this.salary = e.salary;
     this.account = e.account;
