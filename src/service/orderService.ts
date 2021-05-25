@@ -24,11 +24,13 @@ class OrderService {
   public async getById(id: string) {
     try {
       const order = await orderDAO.getById(id);
-      // if(!orders){
-      //   throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
-      // }
+      if(!order){
+        throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
+      }
       // const order = orders[0];
       // logger.debug("upda"+ order?.id)
+      const orderProducts = await orderProductDAO.getById(id);
+      order.orderProducts = orderProducts;
       if (!order) {
         throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.ORDER_GET_BY_ID_ERROR);
       }
@@ -240,7 +242,7 @@ class OrderService {
         result.set(hour,income);
       }
       const res = Array.from(result.entries())
-      logger.debug("haha",res)
+      // logger.debug("haha",res)
       return res;
     }
     catch(e) {
