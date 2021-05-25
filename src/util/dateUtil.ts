@@ -28,7 +28,9 @@ function isValidDateBeforeNow(str: string) {
   }
   else {
     const date = fromString(str)
-    return date < new Date();
+    let nowDate = new Date();
+    nowDate.setHours(nowDate.getHours()+7);
+    return date < nowDate;
   }
 }
 
@@ -50,7 +52,9 @@ function isValidDateTimeBeforeNow(str: string) {
   }
   else {
     const datetime = fromTimeString(str)
-    return datetime < new Date();
+    let nowDate = new Date();
+    nowDate.setHours(nowDate.getHours()+7);s
+    return datetime < nowDate;
   }
 }
 
