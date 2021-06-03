@@ -11,7 +11,7 @@ const orderAuthorConfig = {
   ],
   "getAll": [
     AuthorGroupRole.ADMIN,
-    // AuthorGroupRole.EMPLOYEE,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "delete": [
