@@ -6,6 +6,7 @@ const RESOURCE = "product";
 const productAuthorConfig = {
   "create": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "getAll": [
@@ -15,10 +16,12 @@ const productAuthorConfig = {
   ],
   "delete": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "update": [
     AuthorGroupRole.ADMIN,
+    AuthorGroupRole.EMPLOYEE,
     AuthorGroupRole.ROOT,
   ],
   "getById": [
