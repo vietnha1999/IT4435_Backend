@@ -68,7 +68,7 @@ app.get('/testerror', (req, res) => {
 })
 
 app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, next: any) {
-  if (!req.file || !req.file.path) {
+  if (!req.file) {
     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
   }
 
