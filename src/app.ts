@@ -69,7 +69,7 @@ app.get('/testerror', (req, res) => {
 
 app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, next: any) {
   if (!req.file) {
-    throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
+    throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.FIREBASE_UPLOAD_NEED_FILE);
   }
 
   const filename = uuidv4();
@@ -82,7 +82,7 @@ app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, 
   
   blobWriter.on('error', (err) => {
     logger.error(err);
-    throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.PRODUCT_UPLOAD_PREVIEW_ERROR);
+    next(new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.FIREBASE_UPLOAD_ERROR_UPLOAD));
   })
   
   blobWriter.on('finish', () => {  
