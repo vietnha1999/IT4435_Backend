@@ -20,6 +20,7 @@ import statRoute from './route/statRoute';
 import uploadDisk from './_base/file/uploadDisk';
 import bucket from './_base/file/uploadFirebase';
 import { v4 as uuidv4 } from 'uuid';
+import uploadMemory from './_base/file/uploadMemory';
 
 const app: Express = express();
 
@@ -66,7 +67,7 @@ app.get('/testerror', (req, res) => {
   throw new CustomError(STATUS_CODE.INTERNAL_SERVER_ERROR, ERR_CODE.INTERNAL_SERVER_ERROR, "testerror", {"name": 2, 3: 111}, 2);
 })
 
-app.post('/up', uploadDisk.single("file"), async function(req: any, res: any, next: any) {
+app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, next: any) {
   if (!req.file || !req.file.path) {
     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
   }
