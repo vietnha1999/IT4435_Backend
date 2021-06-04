@@ -71,7 +71,7 @@ app.post('/up', uploadDisk.single("file"), async function(req: any, res: any, ne
     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
   }
 
-  const filename = uuidv4();
+  const filename = uuidv4() + ".jpeg";
   const blob = bucket.file(filename);
   const blobWriter = blob.createWriteStream({
     metadata: {
@@ -85,7 +85,7 @@ app.post('/up', uploadDisk.single("file"), async function(req: any, res: any, ne
   })
   
   blobWriter.on('finish', () => {  
-    const url = `https://firebasestorage.googleapis.com/v0/b/facebook-aafc3.appspot.com/o/${req.file.originalname}?alt=media`;
+    const url = `https://firebasestorage.googleapis.com/v0/b/facebook-aafc3.appspot.com/o/${filename}?alt=media`;
     sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, {
       url: url
     });
