@@ -74,9 +74,9 @@ app.post('/up', uploadDisk.single("file"), async function(req: any, res: any, ne
   const filename = uuidv4();
   const blob = bucket.file(filename);
   const blobWriter = blob.createWriteStream({
-    // metadata: {
-    //   contentType: req.file.mimetype 
-    // }
+    metadata: {
+      contentType: req.file.mimetype 
+    }
   })
   
   blobWriter.on('error', (err) => {
