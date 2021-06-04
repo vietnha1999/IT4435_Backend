@@ -69,7 +69,7 @@ app.get('/testerror', (req, res) => {
 
 app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, next: any) {
   if (!req.file) {
-    throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.FIREBASE_UPLOAD_NEED_FILE);
+    next(new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.FIREBASE_UPLOAD_NEED_FILE));
   }
 
   const filename = uuidv4();
