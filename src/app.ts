@@ -71,7 +71,7 @@ app.post('/up', uploadDisk.single("file"), async function(req: any, res: any, ne
     throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.EMPLOYEE_UPLOAD_AVA_ERROR);
   }
 
-  const filename = uuidv4() + ".jpeg";
+  const filename = uuidv4();
   const blob = bucket.file(filename);
   const blobWriter = blob.createWriteStream({
     metadata: {
