@@ -40,6 +40,10 @@ function validateDumpFields(inputFields: any, expectFields: Array<OneMulterField
     let result: Array<FieldInfoMulter> = [];
     for (let fieldIndex = 0; fieldIndex < expectFields.length; fieldIndex++) {
         const field: OneMulterField = expectFields[fieldIndex];
+        if (Array.isArray(field.outputName) && field.maxCount !== field.outputName.length) {
+            return false;
+        }
+
         const now = inputFields[field.name];
         /**
          * test if curr field valid
@@ -56,10 +60,25 @@ function validateDumpFields(inputFields: any, expectFields: Array<OneMulterField
              * dump curr file in curr field
              */
             if (input && input.buffer && input.mimetype) {
+                /**
+                 * decision output filename
+                 */
+                let outName: string;
+                if (field.outputName === "uuid") {
+                    outName = uuidv4();
+                }
+                else if (field.outputName === "increment") {
+                    outName = field.name + currFileId;
+                }
+                else {
+                    outName = field.outputName[currFileId];
+                }
+
                 result.push({
                     buffer: input.buffer,
-                    filename: field.name,
-                    mimetype: input.mimetype
+                    filename: outName,
+                    mimetype: input.mimetype,
+                    originName: field.name
                 })
             }
             else {
@@ -76,31 +95,28 @@ function validateDumpFields(inputFields: any, expectFields: Array<OneMulterField
 export function uploadFirebaseManyMiddleware(fields: Array<OneMulterField>) {
     return async function upload(req: any, res: any, next: any) {
         try {
-            const dump = validateDumpFields(req.fields, fields);
+            const dump = validateDumpFields(req.files, fields);
             if (!dump) {
                 throw new CustomError(STATUS_CODE.BAD_REQUEST, ERR_CODE.FIREBASE_UPLOAD_NEED_FILE);
             }
 
-            // const promises = dump.map((file: FieldInfoMulter) => uploadFirebaseSingleImage(file.filename, file.buffer, file.mimetype));
             const urls = await Promise.all(dump.map((file: FieldInfoMulter) => uploadFirebaseSingleImage(file.filename, file.buffer, file.mimetype)));
-            logger.debug("URLS" + JSON.stringify(urls));
             
             // Create result
             const result: any = {};
             for (let i = 0; i < fields.length; i++) {
                 result[fields[i].name] = [];
             }
-            logger.debug("result" + JSON.stringify(result));
 
             if (dump.length !== urls.length) {
-                logger.error("Something error urls can not mapping to dump")
+                logger.error(`Something error, urls.length=${urls.length} can not mapping to dump.length=${dump.length}`)
             }
 
-            // for (let dumpId = 0; dumpId < urls.length; dumpId++) {
-            //     const url = urls[dumpId];
-            //     result[fields]
-            // }
-            res.locals.urls = urls;
+            for (let urlId = 0; urlId < urls.length; urlId++) {
+                const url = urls[urlId];
+                result[dump[urlId].originName].push(url);
+            }
+            res.locals.urls = result;
             next();
         }
         catch(e) {

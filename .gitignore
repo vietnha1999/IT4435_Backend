@@ -9,6 +9,7 @@ build/
 temp/
 # Bak
 *.bak
+.env
 
 ### Linux ###
 *~

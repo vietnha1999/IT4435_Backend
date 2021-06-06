@@ -113,16 +113,30 @@ app.post('/up2',
     {
       name: 'cover',
       maxCount: 2
+    },
+    {
+      name: 'story',
+      maxCount: 3
     }
   ]),
   uploadFirebaseManyMiddleware([
     {
       name: 'avatar',
-      maxCount: 1
+      maxCount: 1,
+      outputName: "uuid"
     },
     {
       name: 'cover',
-      maxCount: 2
+      maxCount: 2,
+      outputName: [
+        "CoverXX",
+        "CoverYY"
+      ]
+    },
+    {
+      name: 'story',
+      maxCount: 3,
+      outputName: "increment"
     }
   ]),
   function (req: any, res: any) {
