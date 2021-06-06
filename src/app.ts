@@ -21,6 +21,7 @@ import uploadDisk from './_base/file/uploadDisk';
 import bucket from './_base/file/uploadFirebase';
 import { v4 as uuidv4 } from 'uuid';
 import uploadMemory from './_base/file/uploadMemory';
+import { uploadFirebaseSingleMiddleware } from './middleware/uploadFirebaseMiddleware';
 
 const app: Express = express();
 
@@ -94,6 +95,17 @@ app.post('/up', uploadMemory.single("file"), async function(req: any, res: any, 
   
   blobWriter.end(req.file.buffer)
 });
+
+app.post('/up1',
+  uploadMemory.single("file"),
+  uploadFirebaseSingleMiddleware(),
+  function (req: any, res: any) {
+    logger.debug("URL" + res.locals.pathImage);
+    sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, {
+      url: res.locals.pathImage
+    });
+  }
+);
 
 /**
  * Handle Global Error (Custom Error and Uncontrollable Error)
