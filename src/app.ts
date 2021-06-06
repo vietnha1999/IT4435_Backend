@@ -8,20 +8,17 @@ import logger from './_base/log/logger4js';
 import sendResAppJson from './dto/response/sendResAppJson';
 import globalErrorMiddleware from './error/globalErrorMiddleware';
 import CustomError from './error/customError';
-import env from './env';
 import employeeRoute from './route/employeeRoute';
 import accountRoute from './route/accountRoute';
 import productRoute from './route/productRoute';
 import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
-import * as path from 'path';
 import serverConfig from './config/serverConfig';
 import statRoute from './route/statRoute';
-import uploadDisk from './_base/file/uploadDisk';
 import bucket from './_base/file/uploadFirebase';
 import { v4 as uuidv4 } from 'uuid';
 import uploadMemory from './_base/file/uploadMemory';
-import { uploadFirebaseSingleMiddleware } from './middleware/uploadFirebaseMiddleware';
+import { uploadFirebaseManyMiddleware, uploadFirebaseSingleMiddleware } from './middleware/uploadFirebaseMiddleware';
 
 const app: Express = express();
 
@@ -103,6 +100,35 @@ app.post('/up1',
     logger.debug("URL" + res.locals.pathImage);
     sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, {
       url: res.locals.pathImage
+    });
+  }
+);
+
+app.post('/up2',
+  uploadMemory.fields([
+    {
+      name: 'avatar',
+      maxCount: 1
+    },
+    {
+      name: 'cover',
+      maxCount: 2
+    }
+  ]),
+  uploadFirebaseManyMiddleware([
+    {
+      name: 'avatar',
+      maxCount: 1
+    },
+    {
+      name: 'cover',
+      maxCount: 2
+    }
+  ]),
+  function (req: any, res: any) {
+    logger.debug("URL" + JSON.stringify(res.locals.urls));
+    sendResAppJson(res, STATUS_CODE.OK, ERR_CODE.OK, {
+      urls: res.locals.urls
     });
   }
 );
