@@ -15,7 +15,7 @@ import orderRoute from './route/orderRoute';
 import transactionRoute from './route/transactionRoute';
 import serverConfig from './config/serverConfig';
 import statRoute from './route/statRoute';
-import bucket from './_base/file/uploadFirebase';
+import bucket from './_base/file/bucket';
 import { v4 as uuidv4 } from 'uuid';
 import uploadMemory from './_base/file/uploadMemory';
 import { uploadFirebaseManyMiddleware, uploadFirebaseSingleMiddleware } from './middleware/uploadFirebaseMiddleware';

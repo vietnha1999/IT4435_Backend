@@ -1,4 +1,4 @@
-import bucket from "./uploadFirebase"
+import bucket from "./bucket"
 
 /**
  * @param filename: file's name after uploading to firebase

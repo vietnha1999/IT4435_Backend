@@ -9,7 +9,6 @@ build/
 temp/
 # Bak
 *.bak
-.env
 
 ### Linux ###
 *~
@@ -132,6 +131,7 @@ typings/
 # dotenv environment variables file
 .env.test
 .env*.local
+.env
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
